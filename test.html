@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Promo Layout – Responsive (≥1440 / <1440 / Tablet / Mobile)</title>
+<style>
+  /* ---------- Tokens ---------- */
+  :root{
+    --wrap-max: 1320px;
+    --page-pad: 20px;
+
+    --radius-xl: 28px;
+    --radius-lg: 24px;
+    --radius-md: 20px;
+
+    --gap-xl: 28px;
+    --gap-lg: 24px;
+    --gap-md: 20px;
+
+    --green: #22b11c;
+    --deep-green: #0f2e1f;
+    --light-bg: #faf7fb;
+    --text-dark: #0b0b0b;
+    --text-light: #ffffff;
+    --shadow: 0 10px 30px rgba(0,0,0,.12);
+  }
+
+  /* ---------- Base ---------- */
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--text-dark);
+    background: var(--light-bg);
+  }
+  .page-wrap{
+    max-width: var(--wrap-max);
+    margin: 32px auto 56px;
+    padding: 0 var(--page-pad);
+  }
+
+  /* ---------- Promo block (mobile-first) ---------- */
+  .promo{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--gap-lg);
+  }
+
+  /* Hero */
+  .promo-hero{
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    background: radial-gradient(120% 120% at 0% 0%, #ffd9ea 0%, #f7b6cf 40%, #f6a7c6 55%, #f3a1c2 70%, #f9cdda 100%);
+    aspect-ratio: 16/10;         /* mobile / tablet aspect */
+  }
+  .promo-hero img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit: cover; object-position: center;
+    /* soft fade on bottom edge – optional */
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,.25) 92%, rgba(0,0,0,0) 100%);
+  }
+
+  /* Cards – mobile: stacked one column */
+  .promo-cards{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: var(--gap-lg);
+  }
+
+  .promo-card{
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    display:grid;
+    grid-template-columns: 68px 1fr;
+    gap: 18px;
+    align-items: center;
+    color: var(--text-light);
+  }
+  .promo-card--green{ background: var(--green); }
+  .promo-card--deep{ background: var(--deep-green); }
+
+  .promo-badge{
+    width:68px; height:68px; border-radius:50%;
+    display:grid; place-items:center;
+    background:#ffd36b;
+    box-shadow: inset 0 0 0 6px rgba(255,255,255,.65);
+    color:#2b2b2b; font-weight:700; font-size:12px; line-height:1; text-align:center;
+  }
+  .promo-badge svg{ width:28px; height:28px; display:block; }
+
+  .promo-title{
+    margin:0 0 8px;
+    line-height:1.15;
+    font-size: clamp(22px, 2.2vw + 10px, 32px);
+    letter-spacing: -.02em;
+  }
+  .promo-text{
+    margin:0;
+    font-size: clamp(14px, 1.2vw + 10px, 16px);
+    line-height:1.6;
+    opacity:.95;
+  }
+
+  /* ---------- Tablet (≥768px) – mockup #3 ---------- */
+  @media (min-width: 768px){
+    .promo-hero{ aspect-ratio: 16/7; border-radius: var(--radius-xl); }
+    .promo-cards{
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap-xl);
+    }
+    /* slight playful tilt on the right card like your mock */
+    .promo-card--deep{ transform: rotate(-2deg); }
+    .promo-card--deep .promo-card-inner{ transform: rotate(2deg); }
+  }
+
+  /* ---------- Laptop / Desktop (<1440px) – mockup #2 ---------- */
+  @media (min-width: 1024px){
+    .promo-hero{ aspect-ratio: 16/6; }
+    .promo-title{ font-size: clamp(24px, 1.2vw + 16px, 36px); }
+    .promo-text{ font-size: clamp(15px, .3vw + 14px, 17px); }
+  }
+
+  /* ---------- Desktop XL (≥1440px) – mockup #1 ---------- */
+  @media (min-width: 1440px){
+    .promo{
+      grid-template-columns: 2fr 1fr;      /* hero left, cards right */
+      gap: var(--gap-xl);
+      align-items: stretch;
+    }
+    .promo-hero{
+      aspect-ratio: auto;
+      min-height: 560px;
+      border-radius: var(--radius-xl);
+    }
+    .promo-cards{
+      display:flex; flex-direction: column;
+      gap: var(--gap-xl);
+    }
+    .promo-card{
+      grid-template-columns: 68px 1fr;
+      padding: 30px 28px;
+    }
+    .promo-card--deep{ transform: rotate(-2deg); }
+    .promo-card--deep .promo-card-inner{ transform: rotate(2deg); }
+  }
+
+  /* ---------- Small phones (<360px) tweaks ---------- */
+  @media (max-width: 360px){
+    .promo-card{ grid-template-columns: 56px 1fr; padding: 22px; }
+    .promo-badge{ width:56px; height:56px; }
+    .promo-title{ font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+  <main class="page-wrap">
+    <section class="promo" aria-label="Korean food promo">
+
+      <!-- LEFT / TOP: HERO -->
+      <figure class="promo-hero" aria-label="Group hero">
+        <!-- Swap with your asset -->
+        <img src="https://images.unsplash.com/photo-1550525811-e5869dd03032?q=80&w=1800&auto=format&fit=crop"
+             alt="Smiling group portrait over a pink dreamy background" />
+      </figure>
+
+      <!-- RIGHT / BELOW: CARDS -->
+      <div class="promo-cards">
+        <!-- Card 1 -->
+        <article class="promo-card promo-card--green">
+          <div class="promo-badge" aria-hidden="true" title="Logo">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 3v9M9 3v9M7 8h2M14 3c2 3 2 6 0 9M17 4l4 4-7 7-3 1 1-3 5-5"
+                    stroke="#2b2b2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="promo-card-inner">
+            <h2 class="promo-title">Best-Selling Korean Dumplings</h2>
+            <p class="promo-text">Delighting millions with our signature Mandu — crafted with care and bursting with authentic Korean.</p>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="promo-card promo-card--deep">
+          <div class="promo-badge" aria-hidden="true" title="Street Food">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" stroke="#2b2b2b" stroke-width="2"/>
+              <path d="M7 13c2 2 8 2 10-1" stroke="#2b2b2b" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="promo-card-inner">
+            <h2 class="promo-title">Champion of Korean Street Food</h2>
+            <p class="promo-text">Bringing the vibrant flavors of Korean markets to your table — savory, bold, and irresistibly delicious.</p>
+          </div>
+        </article>
+      </div>
+
+    </section>
+  </main>
+</body>
+</html>
