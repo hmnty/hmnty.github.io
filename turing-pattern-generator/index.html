@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turing Pattern Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- D3 for SVG generation -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/d3-contour.v4.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Turing Pattern Generator</h1>
+            <p>Interactive FitzHugh-Nagumo Reaction-Diffusion Simulation</p>
+        </header>
+
+        <main>
+            <div class="canvas-container">
+                <canvas id="simCanvas"></canvas>
+                <div id="toast" class="toast">Ready</div>
+                <div class="overlay-controls">
+                    <button id="playPauseBtn" class="icon-btn" title="Play/Pause">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="6" y="4" width="4" height="16"></rect>
+                            <rect x="14" y="4" width="4" height="16"></rect>
+                        </svg>
+                    </button>
+                    <button id="resetBtn" class="icon-btn" title="Reset">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                            <path d="M3 3v5h5"></path>
+                        </svg>
+                    </button>
+                </div>
+                <button id="downloadSvgBtn" class="primary-btn run-btn-fixed" disabled>Download SVG</button>
+            </div>
+
+            <aside class="controls">
+                <div class="control-group">
+                    <label for="imageUpload" class="upload-btn">
+                        Upload Image (Optional)
+                        <input type="file" id="imageUpload" accept="image/*">
+                    </label>
+                </div>
+
+                <div class="control-group">
+                    <label for="da">Diffusion A (Da)</label>
+                    <input type="range" id="da" min="0.1" max="2.0" step="0.1" value="1.0">
+                    <span class="value-display" id="da-val">1.0</span>
+                </div>
+
+                <div class="control-group">
+                    <label for="db">Diffusion B (Db)</label>
+                    <input type="range" id="db" min="10" max="200" step="1" value="100">
+                    <span class="value-display" id="db-val">100</span>
+                </div>
+
+                <div class="control-group">
+                    <label for="alpha">Alpha (α)</label>
+                    <input type="range" id="alpha" min="-0.05" max="0.05" step="0.001" value="-0.005">
+                    <span class="value-display" id="alpha-val">-0.005</span>
+                </div>
+
+                <div class="control-group">
+                    <label for="beta">Beta (β)</label>
+                    <input type="range" id="beta" min="1" max="20" step="0.5" value="10">
+                    <span class="value-display" id="beta-val">10</span>
+                </div>
+
+                <div class="control-group">
+                    <label for="speed">Simulation Speed</label>
+                    <input type="range" id="speed" min="1" max="20" step="1" value="5">
+                    <span class="value-display" id="speed-val">5</span>
+                </div>
+
+                <div class="control-group">
+                    <label for="maxSteps">Max Steps</label>
+                    <input type="range" id="maxSteps" min="500" max="20000" step="500" value="5000">
+                    <span class="value-display" id="maxSteps-val">5000</span>
+                </div>
+
+                <div class="control-group">
+                    <label for="thickness">Pattern Thickness</label>
+                    <input type="range" id="thickness" min="-0.5" max="0.5" step="0.05" value="-0.05">
+                    <span class="value-display" id="thickness-val">-0.05</span>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+
+                <div class="actions">
+                    <button id="runBtn" class="primary-btn">Run Simulation</button>
+                </div>
+            </aside>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
